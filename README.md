@@ -34,7 +34,7 @@ onde cada game tem as seguintes informações.
 
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
-| `name` | `string` | name. A chave da sua API |
+| `games` | `string` |  games é a rota padrão para buscar todos os games cadastrados.|
 
 #### Retorna um item
 
@@ -44,7 +44,7 @@ onde cada game tem as seguintes informações.
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | id. O ID do item que você quer |
+| `id`      | `string` | O ID do game que você quer pesquisar.|
 
 
 
