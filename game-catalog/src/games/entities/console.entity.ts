@@ -13,6 +13,6 @@ export class Console {
   @Column()
   datalancamento: Date;
 
-  @Column()
+  @Column({nullable: true})
   empresa: string;
 }

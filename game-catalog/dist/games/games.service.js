@@ -41,18 +41,21 @@ let GamesService = exports.GamesService = class GamesService {
         return game;
     }
     async create(createGamesDto) {
-        const consoles = await Promise.all(createGamesDto.console.map((codigo) => this.preloadConsoleByCodigo(codigo)));
+        createGamesDto.consoles.forEach(c => c.datalancamento = new Date());
+        console.log(createGamesDto);
+        const consoles = await Promise.all(createGamesDto.consoles.map(async (console) => await this.preloadConsoleByCodigo(console.codigo)));
         const desenvolvedor = await this.preloadDesenvolvedorByName(createGamesDto.desenvolvedor);
         const game = this.gameRepository.create({
             ...createGamesDto,
-            console: consoles,
+            console: createGamesDto.consoles,
             desenvolvedor,
         });
+        console.log(game);
         return this.gameRepository.save(game);
     }
     async update(id, updateGamesDto) {
-        const console = updateGamesDto.console &&
-            (await Promise.all(updateGamesDto.console.map((codigo) => this.preloadConsoleByCodigo(codigo))));
+        const console = updateGamesDto.consoles &&
+            (await Promise.all(updateGamesDto.consoles.map((console) => this.preloadConsoleByCodigo(console.codigo))));
         const desenvolvedor = updateGamesDto.desenvolvedor
             ? await this.preloadDesenvolvedorByName(updateGamesDto.desenvolvedor)
             : undefined;

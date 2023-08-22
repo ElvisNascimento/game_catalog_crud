@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GamesController } from './games/games.controller';
 import { GamesModule } from './games/games.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GamesService } from './games/games.service';
 
 @Module({
   imports: [GamesModule,
@@ -14,12 +12,12 @@ import { GamesService } from './games/games.service';
     port:5432,
     username: 'postgres',
     password: 'docker',
-    database: 'postgres',
+    database: 'game_catalog',
     autoLoadEntities: true,
     synchronize: true,
   }),
 ],
-  controllers: [AppController, GamesController],
-  providers: [AppService,GamesService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

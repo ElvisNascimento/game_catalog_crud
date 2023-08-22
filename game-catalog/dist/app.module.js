@@ -10,10 +10,8 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const games_controller_1 = require("./games/games.controller");
 const games_module_1 = require("./games/games.module");
 const typeorm_1 = require("@nestjs/typeorm");
-const games_service_1 = require("./games/games.service");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -25,13 +23,13 @@ exports.AppModule = AppModule = __decorate([
                 port: 5432,
                 username: 'postgres',
                 password: 'docker',
-                database: 'postgres',
+                database: 'game_catalog',
                 autoLoadEntities: true,
                 synchronize: true,
             }),
         ],
-        controllers: [app_controller_1.AppController, games_controller_1.GamesController],
-        providers: [app_service_1.AppService, games_service_1.GamesService],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

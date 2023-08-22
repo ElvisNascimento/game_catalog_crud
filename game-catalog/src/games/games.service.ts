@@ -6,6 +6,8 @@ import { Desenvolvedor } from './entities/desenvolvedor.entity';
 import { Console } from './entities/console.entity';
 import { CreateGamesDto } from './dto/create-games.dto';
 import { UpdateGamesDto } from './dto/update-games.dto';
+import { CreateConsoleDto } from './dto/create-console.dto';
+import { UpdateConsolesDto } from './dto/update-consoles.dto';
 
 @Injectable()
 export class GamesService {
@@ -37,9 +39,11 @@ export class GamesService {
   }
 
   public async create(createGamesDto: CreateGamesDto) {
+    createGamesDto.consoles.forEach(c => c.datalancamento = new Date())
+    console.log(createGamesDto);
     const consoles = await Promise.all(
-      createGamesDto.console.map((codigo: string) =>
-        this.preloadConsoleByCodigo(codigo),
+      createGamesDto.consoles.map(async (console: CreateConsoleDto)  =>
+        await this.preloadConsoleByCodigo(console.codigo),
       ),
     );
 
@@ -49,18 +53,20 @@ export class GamesService {
 
     const game = this.gameRepository.create({
       ...createGamesDto,
-      console: consoles,
+      console: createGamesDto.consoles,
       desenvolvedor,
     });
+    console.log(game);
+    
     return this.gameRepository.save(game);
   }
 
   async update(id: string, updateGamesDto: UpdateGamesDto) {
     const console =
-      updateGamesDto.console &&
+      updateGamesDto.consoles &&
       (await Promise.all(
-        updateGamesDto.console.map((codigo: string) =>
-          this.preloadConsoleByCodigo(codigo),
+        updateGamesDto.consoles.map((console: UpdateConsolesDto) =>
+          this.preloadConsoleByCodigo(console.codigo),
         ),
       ));
 

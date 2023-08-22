@@ -1,3 +1,5 @@
+import { CreateConsoleDto } from "./create-console.dto";
+
 export class CreateGamesDto {
   id: number;
   nome: string;
@@ -7,5 +9,5 @@ export class CreateGamesDto {
   desenvolvedor: string;
   genero: string;
   urlCapa: string;
-  console: string[];
+  consoles: CreateConsoleDto[];
 }
