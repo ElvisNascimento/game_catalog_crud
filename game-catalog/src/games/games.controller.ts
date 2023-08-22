@@ -10,6 +10,7 @@ import {
 import { GamesService } from './games.service';
 import { CreateGamesDto } from './dto/create-games.dto';
 import { UpdateGamesDto } from './dto/update-games.dto';
+import { Game } from './entities/game.entity';
 
 @Controller('games')
 export class GamesController {
@@ -25,14 +26,14 @@ export class GamesController {
   }
 
   @Post()
-  create(@Body() createGamesDto: CreateGamesDto) {
+  create(@Body() createGamesDto: Game) {
     return this.gamesService.create(createGamesDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGamesDto: UpdateGamesDto) {
-    return this.gamesService.update(id, updateGamesDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateGamesDto: UpdateGamesDto) {
+  //   return this.gamesService.update(id, updateGamesDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

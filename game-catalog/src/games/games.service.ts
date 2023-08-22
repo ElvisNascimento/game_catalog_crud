@@ -18,7 +18,7 @@ export class GamesService {
     private readonly desenvolvedorRepository: Repository<Desenvolvedor>,
     @InjectRepository(Console)
     private readonly consoleRepository: Repository<Console>,
-  ) {}
+  ) { }
 
   findAll() {
     return this.gameRepository.find({
@@ -38,66 +38,63 @@ export class GamesService {
     return game;
   }
 
-  public async create(createGamesDto: CreateGamesDto) {
-    createGamesDto.consoles.forEach(c => c.datalancamento = new Date())
+  public async create(createGamesDto: Game) {
     console.log(createGamesDto);
-    const consoles = await Promise.all(
-      createGamesDto.consoles.map(async (console: CreateConsoleDto)  =>
-        await this.preloadConsoleByCodigo(console.codigo),
-      ),
-    );
+    // createGamesDto.consoles.forEach((c) => (c.datalancamento = new Date()));
+    // const consoles = await Promise.all(
+    //   createGamesDto.consoles.map(
+    //     async (console: CreateConsoleDto) =>
+    //       await this.preloadConsoleByCodigo(console.codigo),
+    //   ),
+    // );
 
-    const desenvolvedor = await this.preloadDesenvolvedorByName(
-      createGamesDto.desenvolvedor,
-    );
+    // const desenvolvedor = await this.preloadDesenvolvedorByName(
+    //   createGamesDto.desenvolvedor,
+    // );
 
-    const game = this.gameRepository.create({
-      ...createGamesDto,
-      console: createGamesDto.consoles,
-      desenvolvedor,
-    });
-    console.log(game);
-    
-    return this.gameRepository.save(game);
+    // const game = this.gameRepository.create(createGamesDto);
+    // console.log(game);
+
+    return this.gameRepository.save(createGamesDto);
   }
 
-  async update(id: string, updateGamesDto: UpdateGamesDto) {
-    const console =
-      updateGamesDto.consoles &&
-      (await Promise.all(
-        updateGamesDto.consoles.map((console: UpdateConsolesDto) =>
-          this.preloadConsoleByCodigo(console.codigo),
-        ),
-      ));
+  // async update(id: string, updateGamesDto: UpdateGamesDto) {
+  //   const console =
+  //     updateGamesDto.consoles &&
+  //     (await Promise.all(
+  //       updateGamesDto.consoles.map((console: UpdateConsolesDto) =>
+  //         this.preloadConsoleByCodigo(console.codigo),
+  //       ),
+  //     ));
 
-    const desenvolvedor = updateGamesDto.desenvolvedor
-      ? await this.preloadDesenvolvedorByName(updateGamesDto.desenvolvedor)
-      : undefined;
+  //   const desenvolvedor = updateGamesDto.desenvolvedor
+  //     ? await this.preloadDesenvolvedorByName(updateGamesDto.desenvolvedor)
+  //     : undefined;
 
-    const game = await this.gameRepository.preload({
-      id: +id,
-      ...updateGamesDto,
-      console,
-      desenvolvedor,
-    });
-    if (!game) {
-      throw new NotFoundException(`Game ID ${id} not found`);
-    }
-    return this.gameRepository.save(game);
-  }
+  //   const game = await this.gameRepository.preload({
+  //     id: +id,
+  //     ...updateGamesDto,
+  //     console,
+  //     desenvolvedor,
+  //   });
+  //   if (!game) {
+  //     throw new NotFoundException(`Game ID ${id} not found`);
+  //   }
+  //   return this.gameRepository.save(game);
+  // }
 
   remove(id: string) {
     return `removido ${id}`;
   }
 
-  private async preloadConsoleByCodigo(codigo: string): Promise<Console> {
-    const console = await this.consoleRepository.findOne({ where: { codigo } });
+  // private async preloadConsoleByCodigo(codigo: string): Promise<Console> {
+  //   const console = await this.consoleRepository.findOne({ where: { codigo } });
 
-    if (console) {
-      return console;
-    }
-    return this.consoleRepository.create({ codigo });
-  }
+  //   if (console) {
+  //     return console;
+  //   }
+  //   return this.consoleRepository.create({ codigo });
+  // }
 
   private async preloadDesenvolvedorByName(
     nome: string,

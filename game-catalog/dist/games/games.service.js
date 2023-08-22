@@ -41,44 +41,11 @@ let GamesService = exports.GamesService = class GamesService {
         return game;
     }
     async create(createGamesDto) {
-        createGamesDto.consoles.forEach(c => c.datalancamento = new Date());
         console.log(createGamesDto);
-        const consoles = await Promise.all(createGamesDto.consoles.map(async (console) => await this.preloadConsoleByCodigo(console.codigo)));
-        const desenvolvedor = await this.preloadDesenvolvedorByName(createGamesDto.desenvolvedor);
-        const game = this.gameRepository.create({
-            ...createGamesDto,
-            console: createGamesDto.consoles,
-            desenvolvedor,
-        });
-        console.log(game);
-        return this.gameRepository.save(game);
-    }
-    async update(id, updateGamesDto) {
-        const console = updateGamesDto.consoles &&
-            (await Promise.all(updateGamesDto.consoles.map((console) => this.preloadConsoleByCodigo(console.codigo))));
-        const desenvolvedor = updateGamesDto.desenvolvedor
-            ? await this.preloadDesenvolvedorByName(updateGamesDto.desenvolvedor)
-            : undefined;
-        const game = await this.gameRepository.preload({
-            id: +id,
-            ...updateGamesDto,
-            console,
-            desenvolvedor,
-        });
-        if (!game) {
-            throw new common_1.NotFoundException(`Game ID ${id} not found`);
-        }
-        return this.gameRepository.save(game);
+        return this.gameRepository.save(createGamesDto);
     }
     remove(id) {
         return `removido ${id}`;
-    }
-    async preloadConsoleByCodigo(codigo) {
-        const console = await this.consoleRepository.findOne({ where: { codigo } });
-        if (console) {
-            return console;
-        }
-        return this.consoleRepository.create({ codigo });
     }
     async preloadDesenvolvedorByName(nome) {
         const desenvolvedor = await this.desenvolvedorRepository.findOne({

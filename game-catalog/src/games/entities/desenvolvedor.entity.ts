@@ -12,12 +12,12 @@ export class Desenvolvedor {
   @OneToMany(() => Game, (game) => game.desenvolvedor)
   games: Game[];
 
-  @Column()
+  @Column({ nullable: true })
   dataFundacao: string;
 
-  @Column()
+  @Column({ nullable: true })
   website: string;
 
-  @Column()
+  @Column({ nullable: true })
   sede: string;
 }

@@ -19,10 +19,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Console.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.JoinTable)({ name: 'games_console_console' }),
     (0, typeorm_1.ManyToMany)(() => game_entity_1.Game, (game) => game.console),
-    __metadata("design:type", String)
-], Console.prototype, "codigo", void 0);
+    __metadata("design:type", Array)
+], Console.prototype, "games", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)

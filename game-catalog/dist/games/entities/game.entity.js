@@ -49,10 +49,8 @@ __decorate([
     __metadata("design:type", String)
 ], Game.prototype, "urlCapa", void 0);
 __decorate([
-    (0, typeorm_1.JoinTable)(),
-    (0, typeorm_1.ManyToMany)(() => console_entity_1.Console, (console) => console.codigo, {
-        cascade: true,
-    }),
+    (0, typeorm_1.JoinTable)({ name: 'games_console_console' }),
+    (0, typeorm_1.ManyToMany)(() => console_entity_1.Console, (console) => console.games),
     __metadata("design:type", Array)
 ], Game.prototype, "console", void 0);
 exports.Game = Game = __decorate([

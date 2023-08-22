@@ -1,6 +1,7 @@
+import { Game } from './game.entity';
 export declare class Console {
     id: number;
-    codigo: string;
+    games: Game[];
     datalancamento: Date;
     empresa: string;
 }

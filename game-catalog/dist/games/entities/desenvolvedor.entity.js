@@ -27,15 +27,15 @@ __decorate([
     __metadata("design:type", Array)
 ], Desenvolvedor.prototype, "games", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Desenvolvedor.prototype, "dataFundacao", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Desenvolvedor.prototype, "website", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Desenvolvedor.prototype, "sede", void 0);
 exports.Desenvolvedor = Desenvolvedor = __decorate([

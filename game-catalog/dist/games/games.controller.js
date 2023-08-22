@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GamesController = void 0;
 const common_1 = require("@nestjs/common");
 const games_service_1 = require("./games.service");
-const create_games_dto_1 = require("./dto/create-games.dto");
-const update_games_dto_1 = require("./dto/update-games.dto");
+const game_entity_1 = require("./entities/game.entity");
 let GamesController = exports.GamesController = class GamesController {
     constructor(gamesService) {
         this.gamesService = gamesService;
@@ -29,9 +28,6 @@ let GamesController = exports.GamesController = class GamesController {
     }
     create(createGamesDto) {
         return this.gamesService.create(createGamesDto);
-    }
-    update(id, updateGamesDto) {
-        return this.gamesService.update(id, updateGamesDto);
     }
     remove(id) {
         return this.gamesService.remove(id);
@@ -54,17 +50,9 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_games_dto_1.CreateGamesDto]),
+    __metadata("design:paramtypes", [game_entity_1.Game]),
     __metadata("design:returntype", void 0)
 ], GamesController.prototype, "create", null);
-__decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_games_dto_1.UpdateGamesDto]),
-    __metadata("design:returntype", void 0)
-], GamesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),

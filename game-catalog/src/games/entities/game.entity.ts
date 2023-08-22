@@ -36,9 +36,7 @@ export class Game {
   @Column()
   urlCapa: string;
 
-  @JoinTable()
-  @ManyToMany(() => Console, (console) => console.codigo, {
-    cascade: true,
-  })
+  @JoinTable({ name: 'games_console_console' })
+  @ManyToMany(() => Console, (console: Console) => console.games)
   console: Console[];
 }
